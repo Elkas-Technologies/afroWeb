@@ -7,7 +7,7 @@ const cors = require("cors");
 const path = require("path");
 
 app.use(cors({
-  origin: 'http://www.afrobrave.com',
+  origin: 'https://afro-o04d9qf14-megersam.vercel.app',
   credentials: true
 }));
 

@@ -40,7 +40,7 @@ router.post("/create-user", upload.single("file"), async (req, res, next) => {
 
     const activationToken = createActivationToken(user);
 
-    const activationUrl = `http://www.afrobrave.com/activation/${activationToken}`;
+    const activationUrl = `https://afro-o04d9qf14-megersam.vercel.app/activation/${activationToken}`;
 
     try {
       await sendMail({
