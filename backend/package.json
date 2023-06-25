@@ -2,8 +2,7 @@
   "name": "afrobrave",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
-  "type": "module",
+  "main": "server.js", 
   "engines": {
     "node": "18.8.1"
   },
