@@ -8,7 +8,9 @@ const path = require("path");
 
 app.use(cors({
   origin: 'https://afro-web.vercel.app',
-  credentials: true
+  credentials: true,
+             //access-control-allow-credentials:true
+    optionSuccessStatus:200
 }));
 
 app.use(express.json());
