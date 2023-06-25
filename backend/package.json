@@ -5,7 +5,7 @@
   "main": "server.js",
   "type": "module",
   "engines": {
-    "node": "14.x"
+    "node": "18.8.1"
   },
   "scripts": {
     "dev": "nodemon server.js",
