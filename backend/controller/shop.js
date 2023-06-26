@@ -43,8 +43,8 @@ router.post("/create-shop", upload.single("file"), async (req, res, next) => {
     };
 
     const activationToken = createActivationToken(seller);
-
-    const activationUrl = `http://afro-web.vercel.app/seller/activation/${activationToken}`;
+// the activation link sender
+    const activationUrl = `https://afro-web.vercel.app/seller/activation/${activationToken}`;
 
     try {
       await sendMail({
