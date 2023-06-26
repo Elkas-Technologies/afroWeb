@@ -8,9 +8,10 @@ const path = require("path");
 
 app.use(cors({
   origin: 'https://afro-web-megersam.vercel.app',
-  exposedHeaders: ['Access-Control-Allow-Origin'],
-   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true,
+  methods: ['GET','POST','HEAD','PUT','PATCH','DELETE'],
+    allowedHeaders: ['Content-Type'],
+    exposedHeaders: ['Content-Type'],
+   credentials: true,
      
 }));
   
