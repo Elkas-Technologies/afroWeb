@@ -7,7 +7,7 @@ const cors = require("cors");
 const path = require("path");
 
 app.use(cors({
-  origin: 'https://afro-web-megersam.vercel.app/',
+  origin: 'https://afro-web-megersam.vercel.app',
   methods: ['GET','POST','HEAD','PUT','PATCH','DELETE'],
     allowedHeaders: ['Content-Type'],
     exposedHeaders: ['Content-Type'],
