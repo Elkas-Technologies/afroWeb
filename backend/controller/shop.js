@@ -54,7 +54,11 @@ router.post("/create-shop", upload.single("file"), async (req, res, next) => {
       });
        console.log(res.getHeaders());
       // response ACO
-       res.setHeader('Access-Control-Allow-Origin', 'https://afro-web-megersam.vercel.app');
+       res.set({
+      'Access-Control-Allow-Origin': 'https://afro-web-megersam.vercel.app',
+      'Access-Control-Allow-Methods': 'POST',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    });
       res.status(201).json({
         success: true,
         message: `please check your email:- ${seller.email} to activate your account!`,
