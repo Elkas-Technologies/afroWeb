@@ -52,6 +52,7 @@ router.post("/create-shop", upload.single("file"), async (req, res, next) => {
         subject: "Activate your Account",
         message: `Hello ${seller.name}, please click on the link to activate your account: ${activationUrl}`,
       });
+       console.log(res.getHeaders());
       // response ACO
        res.setHeader('Access-Control-Allow-Origin', 'https://afro-web-megersam.vercel.app');
       res.status(201).json({
