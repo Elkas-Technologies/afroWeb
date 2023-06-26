@@ -1,6 +1,7 @@
 {
   "name": "frontend",
   "version": "0.1.0",
+  "proxy": "https://misty-fawn-tank-top.cyclic.app",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.12.4",
