@@ -7,7 +7,7 @@ const cors = require("cors");
 const path = require("path");
 
 app.use(cors({
-  origin: 'https://afro-web-megersam.vercel.app, https://misty-fawn-tank-top.cyclic.app',
+  origin: 'https://afro-web-megersam.vercel.app',
   exposedHeaders: ['Access-Control-Allow-Origin'],
    methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
