@@ -8,10 +8,15 @@ const path = require("path");
 
 app.use(cors({
   origin: 'https://afro-web.vercel.app',
+  exposedHeaders: ['Access-Control-Allow-Origin'],
+   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
      
 }));
   
+app.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
+});
 
 app.use(express.json());
 app.use(cookieParser());
