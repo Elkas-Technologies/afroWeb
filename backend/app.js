@@ -8,11 +8,13 @@ const path = require("path");
 
 app.use(cors({
   origin: 'https://afro-web-megersam.vercel.app', 
+  origin: 'https://misty-fawn-tank-top.cyclic.app/',
    credentials: true,
 }));
   
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "https://afro-web-megersam.vercel.app");
+  res.header("Access-Control-Allow-Origin", "https://misty-fawn-tank-top.cyclic.app/");
   res.header("Access-Control-Allow-Credentials", true);
   next();
 });
