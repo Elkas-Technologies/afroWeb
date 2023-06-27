@@ -7,7 +7,7 @@ const cors = require("cors");
 const path = require("path");
 
 app.use(cors({
-  origin: 'https://afro-web-megersam.vercel.app',  
+  origin: 'https://afro-web-megersam.vercel.app/',  
    credentials: true,
 }));
   app.use(function(req, res, next) {
@@ -50,7 +50,7 @@ app.use("/api/v2/user", user);
 app.use("/api/v2/conversation", conversation);
 app.use("/api/v2/message", message);
 app.use("/api/v2/order", order);
-app.use("api/v2/shop", shop);
+app.use("/api/v2/shop", shop);
 app.use("/api/v2/product", product);
 app.use("/api/v2/event", event);
 app.use("/api/v2/coupon", coupon);
