@@ -210,14 +210,14 @@ const AllCoupons = () => {
                   </div>
                   <br />
                   <div>
-                    <label className="pb-2">Selected Product</label>
+                    <label className="pb-2">Selected Program</label>
                     <select
                       className="w-full mt-2 border h-[35px] rounded-[5px]"
                       value={selectedProducts}
                       onChange={(e) => setSelectedProducts(e.target.value)}
                     >
                       <option value="Choose your selected products">
-                        Choose a selected product
+                        Choose a selected Program
                       </option>
                       {products &&
                         products.map((i) => (
