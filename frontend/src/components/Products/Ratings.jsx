@@ -10,7 +10,7 @@ const Ratings = ({ rating }) => {
       stars.push(
         <AiFillStar
           key={i}
-          size={20}
+          size={30}
           color="#f6b100"
           className="mr-2 cursor-pointer"
         />
