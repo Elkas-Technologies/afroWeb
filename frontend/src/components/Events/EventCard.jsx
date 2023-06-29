@@ -63,4 +63,6 @@ const EventCard = ({ active, data }) => {
   );
 };
 
+// event page where you can see next events prepared by schools or the agency
+
 export default EventCard;
