@@ -81,12 +81,12 @@ router.delete(
       const product = await Product.findByIdAndDelete(productId);
 
       if (!product) {
-        return next(new ErrorHandler("Program not found with this id!", 500));
+        return next(new ErrorHandler("Course not found with this id!", 500));
       }
 
       res.status(201).json({
         success: true,
-        message: "Program Deleted successfully!",
+        message: "Course Deleted successfully!",
       });
     } catch (error) {
       return next(new ErrorHandler(error, 400));
