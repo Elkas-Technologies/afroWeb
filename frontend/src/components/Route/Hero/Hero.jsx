@@ -84,7 +84,7 @@ const Hero = () => {
       >
         <center>
         <h1 className="text-[64px] text-center mb-[3rem]">
-            <span className="text-white-700">Study In <br />{" "}</span>
+            <span className="text-black-700">Study In <br />{" "}</span>
           
           <span className="text-orange-700">CANADA</span>
 
