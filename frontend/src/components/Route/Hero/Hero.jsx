@@ -83,8 +83,9 @@ const Hero = () => {
         style={divHome}
       >
         <center>
-        <h1 className="text-[64px] text-center mb-[3rem] text-white-700">
-          Study In <br />{" "}
+        <h1 className="text-[64px] text-center mb-[3rem]">
+            <span className="text-white-700">Study In <br />{" "}</span>
+          
           <span className="text-orange-700">CANADA</span>
 
         </h1>
