@@ -158,7 +158,7 @@ const ShopCreate = () => {
               </label>
               <div className="mt-2">
                 <input
-                  type="number"
+                  type="address"
                   name="zipcode"
                   required
                   value={zipCode}
