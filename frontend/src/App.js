@@ -179,7 +179,7 @@ const App = () => {
           }
         />
         <Route
-          path="/dashboard-create-product"
+          path="/dashboard-create-program"
           element={
             <SellerProtectedRoute>
               <ShopCreateProduct />
@@ -187,7 +187,7 @@ const App = () => {
           }
         />
         <Route
-          path="/dashboard-orders"
+          path="/dashboard-applications"
           element={
             <SellerProtectedRoute>
               <ShopAllOrders />
@@ -204,7 +204,7 @@ const App = () => {
         />
 
         <Route
-          path="/order/:id"
+          path="/application/:id"
           element={
             <SellerProtectedRoute>
               <ShopOrderDetails />
@@ -212,7 +212,7 @@ const App = () => {
           }
         />
         <Route
-          path="/dashboard-products"
+          path="/dashboard-program"
           element={
             <SellerProtectedRoute>
               <ShopAllProducts />
