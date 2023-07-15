@@ -6,11 +6,11 @@ export const navItems = [
     },
     {
       title: "Best College & Programs",
-      url: "/best-selling",
+      url: "/best-college-programs",
     },
     {
       title: "Programs",
-      url: "/products",
+      url: "/programs",
     },
     {
       title: "Events",

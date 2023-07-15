@@ -30,7 +30,7 @@ const Faq = () => {
       <div className="mx-auto space-y-4">
         {/* single Faq */}
 
-        <div className="border-b border-gray-200 pb-4">
+        {/* <div className="border-b border-gray-200 pb-4">
           <button
             className="flex items-center justify-between w-full"
             onClick={() => toggleTab(2)}
@@ -78,9 +78,9 @@ const Faq = () => {
               </p>
             </div>
           )}
-        </div>
+        </div> */}
 
-        <div className="border-b border-gray-200 pb-4">
+        {/* <div className="border-b border-gray-200 pb-4">
           <button
             className="flex items-center justify-between w-full"
             onClick={() => toggleTab(3)}
@@ -127,9 +127,9 @@ const Faq = () => {
               </p>
             </div>
           )}
-        </div>
+        </div> */}
 
-        <div className="border-b border-gray-200 pb-4">
+        {/* <div className="border-b border-gray-200 pb-4">
           <button
             className="flex items-center justify-between w-full"
             onClick={() => toggleTab(4)}
@@ -176,9 +176,9 @@ const Faq = () => {
               </p>
             </div>
           )}
-        </div>
+        </div> */}
 
-        <div className="border-b border-gray-200 pb-4">
+        {/* <div className="border-b border-gray-200 pb-4">
           <button
             className="flex items-center justify-between w-full"
             onClick={() => toggleTab(5)}
@@ -226,9 +226,9 @@ const Faq = () => {
               </p>
             </div>
           )}
-        </div>
+        </div> */}
 
-        <div className="border-b border-gray-200 pb-4">
+        {/* <div className="border-b border-gray-200 pb-4">
           <button
             className="flex items-center justify-between w-full"
             onClick={() => toggleTab(6)}
@@ -273,9 +273,9 @@ const Faq = () => {
               </p>
             </div>
           )}
-        </div>
+        </div> */}
 
-        <div className="border-b border-gray-200 pb-4">
+        {/* <div className="border-b border-gray-200 pb-4">
           <button
             className="flex items-center justify-between w-full"
             onClick={() => toggleTab(7)}
@@ -321,7 +321,7 @@ const Faq = () => {
               </p>
             </div>
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -25,7 +25,7 @@ const DashboardHeader = () => {
           
            
             
-          <Link to={`/shop/${seller._id}`}>
+          <Link to={`/school/${seller._id}`}>
             <img
               src={`${backend_url}${seller.avatar}`}
               alt=""

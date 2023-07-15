@@ -104,9 +104,9 @@ const App = () => {
           path="/seller/activation/:activation_token"
           element={<SellerActivationPage />}
         />
-        <Route path="/products" element={<ProductsPage />} />
-        <Route path="/product/:id" element={<ProductDetailsPage />} />
-        <Route path="/best-selling" element={<BestSellingPage />} />
+        <Route path="/programs" element={<ProductsPage />} />
+        <Route path="/program/:id" element={<ProductDetailsPage />} />
+        <Route path="/best-college-programs" element={<BestSellingPage />} />
         <Route path="/events" element={<EventsPage />} />
         <Route path="/faq" element={<FAQPage />} />
         <Route
@@ -150,12 +150,12 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="/shop/preview/:id" element={<ShopPreviewPage />} />
+        <Route path="/school/preview/:id" element={<ShopPreviewPage />} />
         {/* shop Routes */}
         <Route path="/s-create" element={<ShopCreatePage />} />
         <Route path="/s-login" element={<ShopLoginPage />} />
         <Route
-          path="/shop/:id"
+          path="/school/:id"
           element={
             <SellerProtectedRoute>
               <ShopHomePage />
@@ -179,7 +179,7 @@ const App = () => {
           }
         />
         <Route
-          path="/dashboard-create-product"
+          path="/dashboard-create-program"
           element={
             <SellerProtectedRoute>
               <ShopCreateProduct />
@@ -187,7 +187,7 @@ const App = () => {
           }
         />
         <Route
-          path="/dashboard-orders"
+          path="/dashboard-applications"
           element={
             <SellerProtectedRoute>
               <ShopAllOrders />
@@ -204,7 +204,7 @@ const App = () => {
         />
 
         <Route
-          path="/order/:id"
+          path="/application/:id"
           element={
             <SellerProtectedRoute>
               <ShopOrderDetails />
@@ -212,7 +212,7 @@ const App = () => {
           }
         />
         <Route
-          path="/dashboard-products"
+          path="/dashboard-program"
           element={
             <SellerProtectedRoute>
               <ShopAllProducts />

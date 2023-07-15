@@ -30,7 +30,7 @@ const DashboardSideBar = ({ active }) => {
       </div>
 
       <div className="w-full flex items-center p-4">
-        <Link to="/dashboard-orders" className="w-full flex items-center">
+        <Link to="/dashboard-applications" className="w-full flex items-center">
           {/* <FiShoppingBag
             size={30}
             color={`${active === 2 ? "crimson" : "#555"}`}
@@ -46,7 +46,7 @@ const DashboardSideBar = ({ active }) => {
       </div>
 
       <div className="w-full flex items-center p-4">
-        <Link to="/dashboard-products" className="w-full flex items-center">
+        <Link to="/dashboard-program" className="w-full flex items-center">
           {/* <FiPackage size={30} color={`${active === 3 ? "crimson" : "#555"}`} /> */}
           <h5
             className={`hidden 800px:block pl-2 text-[18px] font-[400] ${
@@ -60,7 +60,7 @@ const DashboardSideBar = ({ active }) => {
 
       <div className="w-full flex items-center p-4">
         <Link
-          to="/dashboard-create-product"
+          to="/dashboard-create-program"
           className="w-full flex items-center"
         >
           {/* <AiOutlineFolderAdd
