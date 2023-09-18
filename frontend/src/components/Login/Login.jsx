@@ -12,6 +12,9 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
 
+  // handle submit btn to create a login request from the front-end side.
+  //  contains emai and password input from the frontend and pass to the server
+  // both the model name from the backend and varialble names in the frontend must be the same bacause we used Axios.
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -33,7 +36,7 @@ const Login = () => {
         toast.error(err.response.data.message);
       });
   };
-
+// actual login HTML and tailwind css are here.
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">

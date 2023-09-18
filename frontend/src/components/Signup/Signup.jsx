@@ -7,6 +7,18 @@ import axios from "axios";
 import { server } from "../../server";
 import { toast } from "react-toastify";
 
+// in this class we will handle the sign up page for the user and admin.
+// users parse a parameters of :
+// email, name, password, profile image as avatar, status active or inactive.
+// here in this class we have the ff steps:
+// 1. register request sends to the backend from the frontend by using POST request calling the backend.
+//  2. on sending data to register both the front end and backend tests null vales and backend checks the email weather it is already exist or not.
+// 3 . if the email is exists it returns with that the email was alredy registerd.
+// 4. if the email is not in  our db, it sends an activation email to the given email dynamically. the email contains activation token.
+// 5. user must activate its acount before it going to login because yet it didnt register the user.
+// 6. avtivating the user by the email sent dynamically to user.
+
+
 const Singup = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
