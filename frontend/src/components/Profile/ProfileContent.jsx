@@ -781,6 +781,8 @@ const Address = () => {
 };
 
 // documents.
+// here are where documents upladed per user. 1 document per category.
+// this func also checks user can not select the same category for 2 pdf files instead of saving spaces
 const Documents = () => {
   const [open, setOpen] = useState(false);
   const { user } = useSelector((state) => state.user);
