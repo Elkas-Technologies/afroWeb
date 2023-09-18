@@ -134,6 +134,7 @@ const ProfileSidebar = ({ setActive, active }) => {
         onClick={() => setActive(9)}
       >
         {/* <TbAddressBook size={20} color={active === 7 ? "red" : ""} /> */}
+{/*         added a documents side bar for accessing the side bar */}
         <span
           className={`pl-3 ${
             active === 9 ? "text-[red]" : ""
