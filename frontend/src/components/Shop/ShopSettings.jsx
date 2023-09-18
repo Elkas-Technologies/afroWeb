@@ -52,7 +52,7 @@ const ShopSettings = () => {
         phoneNumber,
         description,
     }, {withCredentials: true}).then((res) => {
-        toast.success("Shop info updated succesfully!");
+        toast.success("College info updated succesfully!");
         dispatch(loadSeller());
     }).catch((error)=> {
         toast.error(error.response.data.message);
