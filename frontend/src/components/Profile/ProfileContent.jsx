@@ -193,6 +193,12 @@ const ProfileContent = ({ active }) => {
           <Address />
         </div>
       )}
+      {/*  user documents */}
+      {active === 9 && (
+        <div>
+          <Documents />
+        </div>
+      )}
     </div>
   );
 };
@@ -768,6 +774,165 @@ const Address = () => {
       {user && user.addresses.length === 0 && (
         <h5 className="text-center pt-8 text-[18px]">
           You not have any saved address!
+        </h5>
+      )}
+    </div>
+  );
+};
+
+// documents.
+// here are where documents upladed per user. 1 document per category.
+// this func also checks user can not select the same category for 2 pdf files instead of saving spaces
+const Documents = () => {
+  const [open, setOpen] = useState(false);
+  const { user } = useSelector((state) => state.user);
+  const [addressType, setAddressType] = useState("");
+  const dispatch = useDispatch();
+
+  const documentTypeData = [
+    {
+      name: "Passport",
+    },
+    {
+      name: "Birth Certificate",
+    },
+    {
+      name: "High School Transcript",
+    },
+     {
+      name: "Diploma",
+    },
+    {
+      name: "Bachelors Degree",
+    },
+    {
+      name: "Masters",
+    },
+    {
+      name: "PHD",
+    },
+   
+    {
+      name: "Language Proficiency test",
+    },
+    {
+      name: "CV",
+    },
+     {
+      name: "Others",
+    },
+  ];
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  };
+
+  const handleDelete = (item) => {
+    const id = item._id;
+    dispatch(deleteUserAddress(id));
+  };
+
+  return (
+    <div className="w-full px-5">
+      {open && (
+        <div className="fixed w-full h-screen bg-[#0000004b] top-0 left-0 flex items-center justify-center ">
+          <div className="w-[35%] h-[80vh] bg-white rounded shadow relative overflow-y-scroll">
+            <div className="w-full flex justify-end p-3">
+              <RxCross1
+                size={30}
+                className="cursor-pointer"
+                onClick={() => setOpen(false)}
+              />
+            </div>
+            <h1 className="text-center text-[25px] font-Poppins">
+              Add New Document
+            </h1>
+            <div className="w-full">
+              <form aria-required onSubmit={handleSubmit} className="w-full">
+                <div className="w-full block p-4">
+                  <div className="w-full pb-2">
+                    <label className="block pb-2">Document Type</label>
+                    <select
+                      name=""
+                      id=""
+                      value={addressType}
+                      onChange={(e) => setAddressType(e.target.value)}
+                      className="w-[95%] border h-[40px] rounded-[5px]"
+                    >
+                      <option value="" className="block border pb-2">
+                        Choose your Document Type
+                      </option>
+                      {documentTypeData &&
+                        documentTypeData.map((item) => (
+                          <option
+                            className="block pb-2"
+                            key={item.name}
+                            value={item.name}
+                          >
+                            {item.name}
+                          </option>
+                        ))}
+                    </select>
+                  </div>
+
+                  <div className=" w-full pb-2">
+                    <input
+                      type="submit"
+                      className={`${styles.input} mt-5 cursor-pointer`}
+                      required
+                      readOnly
+                    />
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+      <div className="flex w-full items-center justify-between">
+        <h1 className="text-[25px] font-[600] text-[#000000ba] pb-2">
+          My Documents
+        </h1>
+        <div
+          className={`${styles.button} !rounded-md`}
+          onClick={() => setOpen(true)}
+        >
+          <span className="text-[#fff]">Add New</span>
+        </div>
+      </div>
+      <br />
+      {user &&
+        user.addresses.map((item, index) => (
+          <div
+            className="w-full bg-white h-min 800px:h-[70px] rounded-[4px] flex items-center px-3 shadow justify-between pr-10 mb-5"
+            key={index}
+          >
+            <div className="flex items-center">
+              <h5 className="pl-5 font-[600]">{item.addressType}</h5>
+            </div>
+            <div className="pl-8 flex items-center">
+              <h6 className="text-[12px] 800px:text-[unset]">
+                {item.address1} {item.address2}
+              </h6>
+            </div>
+            <div className="pl-8 flex items-center">
+              <h6 className="text-[12px] 800px:text-[unset]">
+                {user && user.phoneNumber}
+              </h6>
+            </div>
+            <div className="min-w-[10%] flex items-center justify-between pl-8">
+              <AiOutlineDelete
+                size={25}
+                className="cursor-pointer"
+                onClick={() => handleDelete(item)}
+              />
+            </div>
+          </div>
+        ))}
+
+      {user && user.addresses.length === 0 && (
+        <h5 className="text-center pt-8 text-[18px]">
+          You not have any saved Document!
         </h5>
       )}
     </div>
