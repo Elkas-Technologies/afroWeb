@@ -42,6 +42,16 @@ const userSchema = new mongoose.Schema({
       },
     }
   ],
+  documents:[
+    {
+      documentType: {
+        type: String,
+      },
+      pdfFile: {
+        type : String ,
+      }
+    }
+  ],
   role:{
     type: String,
     default: "user",

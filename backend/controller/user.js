@@ -294,6 +294,145 @@ router.put(
   })
 );
 
+
+// update user document.
+
+// router.put(
+//   "/update-user-document",
+//   isAuthenticated,
+//   catchAsyncErrors(async (req, res, next) => {
+//     try {
+//       const user = await User.findById(req.user.id);
+
+//       const sameDocumentType = user.documents.find(
+//         (documents) => documents.documentType === req.body.documentType
+//       );
+//       if (sameDocumentType) {
+//         return next(
+//           new ErrorHandler(`${req.body.documentType} Document type already exists`)
+//         );
+//       }
+
+//       const existsDocument = user.documents.find(
+//         (documents) => documents._id === req.body._id
+//       );
+
+//       if (existsDocument) {
+//         Object.assign(existsDocument, req.body);
+//       } else {
+//         // add the new address to the array
+//         user.documents.push(req.body);
+//       }
+
+//       await user.save();
+
+//       res.status(200).json({
+//         success: true,
+//         user,
+//       });
+//     } catch (error) {
+//       return next(new ErrorHandler(error.message, 500));
+//     }
+//   })
+// );
+
+// router.put(
+//   "/update-user-document",
+//   isAuthenticated,
+//   upload.single("pdfFile"),
+//   catchAsyncErrors(async (req, res, next) => {
+//     try {
+//       const user = await User.findById(req.user.id);
+
+//       const sameDocumentType = user.documents.find(
+//         (document) => document.documentType === req.body.documentType
+//       );
+//       if (sameDocumentType) {
+//         return next(
+//           new ErrorHandler(`${req.body.documentType} Document type already exists`)
+//         );
+//       }
+
+//       const existsDocument = user.documents.find(
+//         (document) => document._id === req.body._id
+//       );
+
+//       if (existsDocument) {
+//         Object.assign(existsDocument, req.body);
+//       } else {
+//         // add the new document to the array
+//         const newDocument = {
+//           documentType: req.body.documentType,
+//           pdfFile: req.file ? req.file.filename : null,
+//         };
+//         user.documents.push(newDocument);
+//       }
+
+//       await user.save();
+
+//       res.status(200).json({
+//         success: true,
+//         user,
+//       });
+//     } catch (error) {
+//       return next(new ErrorHandler(error.message, 500));
+//     }
+//   })
+// );
+router.put(
+  "/update-user-document",
+  isAuthenticated,
+  upload.single("pdfFile"),
+  catchAsyncErrors(async (req, res, next) => {
+    try {
+      const user = await User.findById(req.user.id);
+
+      const sameDocumentType = user.documents.find(
+        (document) => document.documentType === req.body.documentType
+      );
+      if (sameDocumentType) {
+        if (req.file) {
+          // Delete the uploaded file if it exists
+          fs.unlinkSync(req.file.path);
+        }
+        return res.status(400).json({
+          success: false,
+          message: `${req.body.documentType} document type already exists.`,
+        });
+      }
+
+      const existsDocument = user.documents.find(
+        (document) => document._id === req.body._id
+      );
+
+      if (existsDocument) {
+        Object.assign(existsDocument, req.body);
+      } else {
+        // add the new document to the array
+        const newDocument = {
+          documentType: req.body.documentType,
+          pdfFile: req.file ? req.file.filename : null,
+        };
+        user.documents.push(newDocument);
+      }
+
+      await user.save();
+
+      res.status(200).json({
+        success: true,
+        user,
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  })
+);
+
+ 
+
+module.exports = router;
+
+
 // delete user address
 router.delete(
   "/delete-user-address/:id",
@@ -315,6 +454,51 @@ router.delete(
       const user = await User.findById(userId);
 
       res.status(200).json({ success: true, user });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  })
+);
+
+// delete user document 
+router.delete(
+  "/delete-user-document/:id",
+  isAuthenticated,
+  catchAsyncErrors(async (req, res, next) => {
+    try {
+      const user = await User.findById(req.user.id);
+
+      const documentIndex = user.documents.findIndex(
+        (document) => document._id.toString() === req.params.id
+      );
+
+      if (documentIndex === -1) {
+        return res.status(404).json({
+          success: false,
+          message: "User document not found.",
+        });
+      }
+
+      // Delete the document from the update folder if it exists
+      if (user.documents[documentIndex].pdfFile) {
+        const documentFilePath = path.join(
+          __dirname,
+          "../uploads",
+          user.documents[documentIndex].pdfFile
+        );
+        fs.unlinkSync(documentFilePath);
+      }
+
+      // Remove the document at the specified index from the user's array
+      user.documents.splice(documentIndex, 1);
+
+      await user.save();
+
+      res.status(200).json({
+        success: true,
+        message: "User document deleted successfully.",
+        user,
+      });
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
     }
