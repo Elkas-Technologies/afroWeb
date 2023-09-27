@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import { RxAvatar } from "react-icons/rx";
+import { Document, Page } from 'react-pdf';
 import {
   AiOutlineArrowRight,
   AiOutlineCamera,
@@ -16,7 +18,9 @@ import {
   deleteUserAddress,
   loadUser,
   updatUserAddress,
+  updateUserDocument,
   updateUserInformation,
+  deleteUserDocument
 } from "../../redux/actions/user";
 import { Country, State } from "country-state-city";
 import { useEffect } from "react";
@@ -65,8 +69,8 @@ const ProfileContent = ({ active }) => {
         withCredentials: true,
       })
       .then((response) => {
-         dispatch(loadUser());
-         toast.success("avatar updated successfully!");
+        dispatch(loadUser());
+        toast.success("avatar updated successfully!");
       })
       .catch((error) => {
         toast.error(error);
@@ -353,7 +357,7 @@ const AllRefundOrders = () => {
   const row = [];
 
   eligibleOrders &&
-   eligibleOrders.forEach((item) => {
+    eligibleOrders.forEach((item) => {
       row.push({
         id: item._id,
         itemsQty: item.cart.length,
@@ -784,7 +788,10 @@ const Address = () => {
 const Documents = () => {
   const [open, setOpen] = useState(false);
   const { user } = useSelector((state) => state.user);
-  const [addressType, setAddressType] = useState("");
+  const [documentType, setDocumentType] = useState("");
+  const [pdfFile, setPdfFile] = useState(null);
+  const fileInputRef = useRef(null);
+
   const dispatch = useDispatch();
 
   const documentTypeData = [
@@ -797,7 +804,7 @@ const Documents = () => {
     {
       name: "High School Transcript",
     },
-     {
+    {
       name: "Diploma",
     },
     {
@@ -809,25 +816,50 @@ const Documents = () => {
     {
       name: "PHD",
     },
-   
+
     {
       name: "Language Proficiency test",
     },
     {
       name: "CV",
     },
-     {
+    {
       name: "Others",
     },
   ];
 
+  const handleFileChange = (e) => {
+    setPdfFile(e.target.files[0]);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (documentType === "") {
+      toast.error("Please fill all the fields!");
+    } else {
+      dispatch(
+        updateUserDocument(
+          documentType,
+          pdfFile,
+        )
+      );
+
+
+      setOpen(false);
+      setDocumentType("");
+      setPdfFile(null);
+      fileInputRef.current.value = null;
+    }
   };
 
   const handleDelete = (item) => {
     const id = item._id;
-    dispatch(deleteUserAddress(id));
+    dispatch(deleteUserDocument(id));
+  };
+
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0];
+    setDocumentType(file);
   };
 
   return (
@@ -853,8 +885,8 @@ const Documents = () => {
                     <select
                       name=""
                       id=""
-                      value={addressType}
-                      onChange={(e) => setAddressType(e.target.value)}
+                      value={documentType}
+                      onChange={(e) => setDocumentType(e.target.value)}
                       className="w-[95%] border h-[40px] rounded-[5px]"
                     >
                       <option value="" className="block border pb-2">
@@ -871,6 +903,24 @@ const Documents = () => {
                           </option>
                         ))}
                     </select>
+
+                    {/* here the UI and logic will implement for document upload */}
+                    <div className="mb-3 w-96">
+                      <div class="mt-4 flex text-sm leading-6 text-gray-600">
+                        <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500" />
+                        <span>Upload a file</span>
+                      </div>
+                      <input
+                        className="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
+                        type="file"
+                        id="pdfFile"
+                        name="pdfFile"
+                        accept=".pdf"
+                        required="true"
+                        onChange={handleFileChange}
+                        ref={fileInputRef}
+                      />
+                    </div>
                   </div>
 
                   <div className=" w-full pb-2">
@@ -900,24 +950,15 @@ const Documents = () => {
       </div>
       <br />
       {user &&
-        user.addresses.map((item, index) => (
+        user.documents.map((item, index) => (
           <div
             className="w-full bg-white h-min 800px:h-[70px] rounded-[4px] flex items-center px-3 shadow justify-between pr-10 mb-5"
             key={index}
           >
             <div className="flex items-center">
-              <h5 className="pl-5 font-[600]">{item.addressType}</h5>
+              <h5 className="pl-5 font-[600]">{item.documentType}</h5>
             </div>
-            <div className="pl-8 flex items-center">
-              <h6 className="text-[12px] 800px:text-[unset]">
-                {item.address1} {item.address2}
-              </h6>
-            </div>
-            <div className="pl-8 flex items-center">
-              <h6 className="text-[12px] 800px:text-[unset]">
-                {user && user.phoneNumber}
-              </h6>
-            </div>
+
             <div className="min-w-[10%] flex items-center justify-between pl-8">
               <AiOutlineDelete
                 size={25}
@@ -928,7 +969,7 @@ const Documents = () => {
           </div>
         ))}
 
-      {user && user.addresses.length === 0 && (
+      {user && user.documents.length === 0 && (
         <h5 className="text-center pt-8 text-[18px]">
           You not have any saved Document!
         </h5>

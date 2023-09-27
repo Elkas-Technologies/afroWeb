@@ -143,6 +143,33 @@ export const deleteUserAddress = (id) => async (dispatch) => {
   }
 };
 
+// delete user document
+export const deleteUserDocument = (id) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "deleteUserAddressRequest",
+    });
+
+    const { data } = await axios.delete(
+      `${server}/user/delete-user-document/${id}`,
+      { withCredentials: true }
+    );
+
+    dispatch({
+      type: "deleteUserAddressSuccess",
+      payload: {
+        successMessage: "User document deleted successfully!",
+        user: data.user,
+      },
+    });
+  } catch (error) {
+    dispatch({
+      type: "deleteUserAddressFailed",
+      payload: error.response.data.message,
+    });
+  }
+};
+
 // get all users --- admin
 export const getAllUsers = () => async (dispatch) => {
   try {
@@ -161,6 +188,43 @@ export const getAllUsers = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: "getAllUsersFailed",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// update user documents.
+export const updateUserDocument = (documentType, pdfFile) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "updateUserAddressRequest",
+    });
+
+    const formData = new FormData();
+    formData.append("documentType", documentType);
+    formData.append("pdfFile", pdfFile);
+
+    const { data } = await axios.put(
+      `${server}/user/update-user-document`,
+      formData,
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    dispatch({
+      type: "updateUserAddressSuccess",
+      payload: {
+        successMessage: "User document updated successfully!",
+        user: data.user,
+      },
+    });
+  } catch (error) {
+    dispatch({
+      type: "updateUserAddressFailed",
       payload: error.response.data.message,
     });
   }
