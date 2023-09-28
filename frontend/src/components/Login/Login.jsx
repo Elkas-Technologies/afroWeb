@@ -29,14 +29,14 @@ const Login = () => {
       )
       .then((res) => {
         toast.success("Login Success!");
-        navigate("/");
-        window.location.reload(true); 
+        navigate("/profile");
+        window.location.reload(true);
       })
       .catch((err) => {
         toast.error(err.response.data.message);
       });
   };
-// actual login HTML and tailwind css are here.
+  // actual login HTML and tailwind css are here.
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
