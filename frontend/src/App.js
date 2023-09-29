@@ -62,6 +62,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Example from "./components/Admin/Layout/viewUserProfile";
 import ViewUser from "./components/Admin/Layout/viewUserProfile";
+import ViewSchool from "./components/Admin/Layout/viewSchoolProfile";
 
 const App = () => {
   const [stripeApikey, setStripeApiKey] = useState("");
@@ -279,7 +280,7 @@ const App = () => {
           }
         />
         <Route
-          path="/admin-sellers"
+          path="/admin-schools"
           element={
             <ProtectedAdminRoute>
               <AdminDashboardSellers />
@@ -291,6 +292,14 @@ const App = () => {
           element={
             <ProtectedAdminRoute>
               <ViewUser />
+            </ProtectedAdminRoute>
+          }
+        />
+         <Route
+          path="/admin-viewSchool/:id"
+          element={
+            <ProtectedAdminRoute>
+              <ViewSchool />
             </ProtectedAdminRoute>
           }
         />
