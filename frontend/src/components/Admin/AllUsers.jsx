@@ -10,12 +10,14 @@ import { RxCross1 } from "react-icons/rx";
 import axios from "axios";
 import { server } from "../../server";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const AllUsers = () => {
   const dispatch = useDispatch();
   const { users } = useSelector((state) => state.user);
   const [open, setOpen] = useState(false);
   const [userId, setUserId] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getAllUsers());
@@ -23,12 +25,12 @@ const AllUsers = () => {
 
   const handleDelete = async (id) => {
     await axios
-    .delete(`${server}/user/delete-user/${id}`, { withCredentials: true })
-    .then((res) => {
-      toast.success(res.data.message);
-    });
+      .delete(`${server}/user/delete-user/${id}`, { withCredentials: true })
+      .then((res) => {
+        toast.success(res.data.message);
+      });
 
-  dispatch(getAllUsers());
+    dispatch(getAllUsers());
   };
 
   const columns = [
@@ -81,7 +83,10 @@ const AllUsers = () => {
       },
     },
   ];
-
+  const handleCardClick = (person) => {
+    const { id, ...users } = person;
+    window.open(`/admin-viewUser/${id}`);
+  };
   const row = [];
   users &&
     users.forEach((item) => {
@@ -90,6 +95,8 @@ const AllUsers = () => {
         name: item.name,
         email: item.email,
         role: item.role,
+        avatar: item.avatar,
+        phone: item.phone,
         joinedAt: item.createdAt.slice(0, 10),
       });
     });
@@ -98,41 +105,42 @@ const AllUsers = () => {
     <div className="w-full flex justify-center pt-5">
       <div className="w-[97%]">
         <h3 className="text-[22px] font-Poppins pb-2">All Users</h3>
-        <div className="w-full min-h-[45vh] bg-white rounded">
-          <DataGrid
-            rows={row}
-            columns={columns}
-            pageSize={10}
-            disableSelectionOnClick
-            autoHeight
-          />
-        </div>
-        {open && (
-          <div className="w-full fixed top-0 left-0 z-[999] bg-[#00000039] flex items-center justify-center h-screen">
-            <div className="w-[95%] 800px:w-[40%] min-h-[20vh] bg-white rounded shadow p-5">
-              <div className="w-full flex justify-end cursor-pointer">
-                <RxCross1 size={25} onClick={() => setOpen(false)} />
-              </div>
-              <h3 className="text-[25px] text-center py-5 font-Poppins text-[#000000cb]">
-                Are you sure you wanna delete this user?
-              </h3>
-              <div className="w-full flex items-center justify-center">
-                <div
-                  className={`${styles.button} text-white text-[18px] !h-[42px] mr-4`}
-                  onClick={() => setOpen(false)}
-                >
-                  cancel
+        <ul role="list" className="divide-y divide-gray-100">
+          {row.map((person) => (
+            <li
+              key={person.id}
+              className="bg-white shadow-sm rounded-lg p-4 mb-4 cursor-pointer"
+              onClick={() => handleCardClick(person)}
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-x-4">
+                  <img
+                    className="h-12 w-12 flex-none rounded-full bg-gray-50"
+                    src={person.avatar}
+                    alt=""
+                  />
+                  <div>
+                    <p className="text-sm font-semibold leading-6 text-gray-900">
+                      {person.name}
+                    </p>
+                    <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                      {person.email}
+                    </p>
+                  </div>
                 </div>
-                <div
-                  className={`${styles.button} text-white text-[18px] !h-[42px] ml-4`}
-                  onClick={() =>  setOpen(false) || handleDelete(userId)}
-                >
-                  confirm
+                <div className="flex flex-col justify-between items-end">
+                  <p className="text-sm leading-6 text-gray-900">
+                    {person.role}
+                  </p>
+                  <p className="text-xs leading-5 text-gray-500">
+                    Joined at{" "}
+                    <time dateTime={person.joinedAt}>{person.joinedAt}</time>
+                  </p>
                 </div>
               </div>
-            </div>
-          </div>
-        )}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
