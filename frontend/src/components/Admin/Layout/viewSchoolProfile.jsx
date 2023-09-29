@@ -118,8 +118,6 @@ const ViewSchool = () => {
                             {shop.address ? shop.address : "N/A"}
                         </dd>
                     </div>
-
-
                 </dl>
             </div>
         </div>
