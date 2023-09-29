@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
     cb(null, filename + '-' + uniqueSuffix + extension);
   },
   fileFilter: function (req, file, cb) {
-    const allowedExtensions = ['.pdf', '.png'];
+    const allowedExtensions = ['.pdf', '.png', 'jpeg'];
     const extension = path.extname(file.originalname).toLowerCase();
 
     if (allowedExtensions.includes(extension)) {

@@ -90,7 +90,8 @@ const ViewUser = () => {
                                         Full name:
                                     </dt>
                                     <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0" style={{ width: '200%' }}>
-                                        <span className="inline-block max-w-full">{user.name}</span>
+                                        <span className="inline-block max-w-full">{user.name ? user.name : "N/A"}
+                                        </span>
                                     </dd>
                                 </div>
                                 <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -98,7 +99,7 @@ const ViewUser = () => {
                                         Email:
                                     </dt>
                                     <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                                        {user.email}
+                                        {user.email ? user.email : "N/A"}
                                     </dd>
                                 </div>
                             </div>
@@ -109,7 +110,7 @@ const ViewUser = () => {
                             Phone:
                         </dt>
                         <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                            {user.phoneNumber}
+                            {user.phoneNumber ? user.phoneNumber : "N/A"}
                         </dd>
                     </div>
                     <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0 ml-32">
@@ -117,7 +118,7 @@ const ViewUser = () => {
                             Role:
                         </dt>
                         <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                            {user.role}
+                            {user.role ? user.role : "N/A"}
                         </dd>
                     </div>
                     <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0 ml-32">
@@ -125,7 +126,7 @@ const ViewUser = () => {
                             Created At:
                         </dt>
                         <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                            {user.createdAt}
+                            {user.createdAt ? user.createdAt : "N/A"}
                         </dd>
                     </div>
                     <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0 ml-32">
@@ -137,7 +138,11 @@ const ViewUser = () => {
                             <ul>
                                 {user.addresses.map((address, index) => (
                                     <li key={index}>
-                                        {address.addressType}, {address.address1}, {address.address2}, {address.city}, {address.country}, {address.zipCode}
+                                        {address.addressType ? `${address.addressType}, ` : "N/A, "}
+                                        {address.address1 ? `${address.address1}, ` : "N/A, "}
+                                        {address.address2 ? `${address.address2}, ` : "N/A, "}
+                                        {address.city ? `${address.city}, ` : "N/A, "}
+                                        {address.country ? `${address.country}, ` : "N/A, "}
                                     </li>
                                 ))}
                             </ul>
@@ -158,7 +163,8 @@ const ViewUser = () => {
                                     <li key={index} className="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-6">
                                         <div className="flex w-0 flex-1 items-center">
                                             <div className="ml-4 flex min-w-0 flex-1 gap-2">
-                                                <span className="truncate font-medium">{document.documentType}</span>
+                                                <span className="truncate font-medium">
+                                                    {document.documentType ? document.documentType : "N/A"}</span>
                                             </div>
                                             <svg
                                                 className="h-5 w-5 flex-shrink-0 text-gray-400"
@@ -174,7 +180,8 @@ const ViewUser = () => {
                                             </svg>
                                             <div className="ml-4 flex min-w-0 flex-1 gap-2">
                                                 {/* // src={`${backend_url}${user?.avatar}`} */}
-                                                <span className="truncate font-medium">{document.pdfFile}</span>
+                                                <span className="truncate font-medium">
+                                                    {document.pdfFile ? document.pdfFile : "N/A"}</span>
                                             </div>
                                         </div>
                                         <div className="ml-4 flex-shrink-0">
