@@ -60,6 +60,8 @@ import axios from "axios";
 import { server } from "./server";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import Example from "./components/Admin/Layout/viewUserProfile";
+import ViewUser from "./components/Admin/Layout/viewUserProfile";
 
 const App = () => {
   const [stripeApikey, setStripeApiKey] = useState("");
@@ -281,6 +283,14 @@ const App = () => {
           element={
             <ProtectedAdminRoute>
               <AdminDashboardSellers />
+            </ProtectedAdminRoute>
+          }
+        />
+        <Route
+          path="/admin-viewUser/:id"
+          element={
+            <ProtectedAdminRoute>
+              <ViewUser />
             </ProtectedAdminRoute>
           }
         />

@@ -16,8 +16,8 @@ import { useSelector } from "react-redux";
 import { backend_url } from "../../server";
 import Cart from "../cart/Cart";
 import Wishlist from "../Wishlist/Wishlist";
-import { RxCross1 } from "react-icons/rx"; 
-import  imagelogo  from '../../Assests/Images/imageslogo.png';
+import { RxCross1 } from "react-icons/rx";
+import imagelogo from '../../Assests/Images/afrologo.jpeg';
 
 const Header = ({ activeHeading }) => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -56,15 +56,14 @@ const Header = ({ activeHeading }) => {
   return (
     <>
       <div
-        className={`${
-          active === true ? "shadow-sm fixed top-0 left-0 z-10" : null
-        } transition hidden 800px:flex items-center justify-between w-full bg-[black] h-[70px]`}
+        className={`${active === true ? "shadow-sm fixed top-0 left-0 z-10" : null
+          } transition hidden 800px:flex items-center justify-between w-full bg-[black] h-[70px]`}
       >
         <div
           className={`${styles.section} relative ${styles.noramlFlex} justify-between`}
         >
           {/* categories */}
-           <div>
+          <div>
             <Link to="/">
               <img
                 src={`${imagelogo}`}
@@ -78,9 +77,9 @@ const Header = ({ activeHeading }) => {
           </div>
 
           <div className="flex">
-            
 
-            
+
+
 
             <div className={`${styles.noramlFlex}`}>
               <div className="relative cursor-pointer mr-[15px]">
@@ -102,11 +101,10 @@ const Header = ({ activeHeading }) => {
           </div>
         </div>
       </div>
- {/* Mobile */}
+      {/* Mobile */}
       <div
-        className={`${
-          active === true ? "shadow-sm fixed top-0 left-0 z-10" : null
-        }
+        className={`${active === true ? "shadow-sm fixed top-0 left-0 z-10" : null
+          }
       w-full h-[60px] bg-[#black] z-50 top-0 left-0 shadow-sm 800px:hidden`}
       >
         <div className="w-full flex items-center justify-between">
@@ -126,7 +124,7 @@ const Header = ({ activeHeading }) => {
               />
             </Link>
           </div>
-           
+
         </div>
 
         {/* header sidebar */}
@@ -135,13 +133,13 @@ const Header = ({ activeHeading }) => {
             className={`fixed w-full bg-[#0000005f] z-20 h-full top-0 left-0`}
           >
             <div className="fixed w-[70%] bg-[#fff] h-screen top-0 left-0 z-10 overflow-y-scroll">
-               
 
-               
+
+
 
               <Navbar active={activeHeading} />
-              
-               
+
+
 
               <div className="flex w-full justify-center">
                 {isAuthenticated ? (
@@ -176,7 +174,7 @@ const Header = ({ activeHeading }) => {
         )}
       </div>
     </>
-    
+
   );
 };
 

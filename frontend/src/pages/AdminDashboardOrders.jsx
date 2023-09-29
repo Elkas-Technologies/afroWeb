@@ -17,7 +17,7 @@ const AdminDashboardOrders = () => {
   }, []);
 
   const columns = [
-    { field: "id", headerName: "Order ID", minWidth: 150, flex: 0.7 },
+    { field: "id", headerName: "Application ID", minWidth: 150, flex: 0.7 },
 
     {
       field: "status",
@@ -25,33 +25,40 @@ const AdminDashboardOrders = () => {
       minWidth: 130,
       flex: 0.7,
       cellClassName: (params) => {
-        return params.getValue(params.id, "status") === "Delivered"
+        return params.getValue(params.id, "status") === "Accepted"
           ? "greenColor"
           : "redColor";
       },
     },
     {
       field: "itemsQty",
-      headerName: "Items Qty",
-      type: "number",
+      headerName: "Course",
+      type: "text",
       minWidth: 130,
       flex: 0.7,
     },
 
     {
       field: "total",
-      headerName: "Total",
-      type: "number",
+      headerName: "School",
+      type: "text",
       minWidth: 130,
       flex: 0.8,
     },
     {
-        field: "createdAt",
-        headerName: "Order Date",
-        type: "number",
-        minWidth: 130,
-        flex: 0.8,
-      },
+      field: "studentemail",
+      headerName: "Student email",
+      type: "email",
+      minWidth: 130,
+      flex: 0.8,
+    },
+    {
+      field: "createdAt",
+      headerName: "Order Date",
+      type: "number",
+      minWidth: 130,
+      flex: 0.8,
+    },
   ];
 
   const row = [];
@@ -62,7 +69,7 @@ const AdminDashboardOrders = () => {
         itemsQty: item?.cart?.reduce((acc, item) => acc + item.qty, 0),
         total: item?.totalPrice + " $",
         status: item?.status,
-        createdAt: item?.createdAt.slice(0,10),
+        createdAt: item?.createdAt.slice(0, 10),
       });
     });
   return (

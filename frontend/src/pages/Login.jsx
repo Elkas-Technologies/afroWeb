@@ -8,14 +8,14 @@ const LoginPage = () => {
   const { isAuthenticated } = useSelector((state) => state.user);
 
   useEffect(() => {
-    if(isAuthenticated === true){
-      navigate("/");
+    if (isAuthenticated === true) {
+      navigate("/profile");
     }
   }, [])
-  
+
   return (
     <div>
-        <Login />
+      <Login />
     </div>
   )
 }
