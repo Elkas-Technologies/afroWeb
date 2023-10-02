@@ -5,18 +5,20 @@ import { server } from "../../../server";
 import { backend_url } from "../../../server";
 import axios from 'axios';
 import Loader from '../../Layout/Loader';
+import { toast } from 'react-toastify';
 
 const ViewSchool = () => {
     const { id } = useParams();
     const location = useLocation();
     const [shop, setShop] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [showDialog, setShowDialog] = useState(false);
 
 
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await axios.get(`${server}/shop/get-shop-info/${id}`);
+                const response = await axios.get(`${server}/shop/get-shop-info/${id}`, { withCredentials: true });
                 const { data } = response;
                 console.log(data); // Log the response data to the console
                 setShop(data.shop);
@@ -38,9 +40,33 @@ const ViewSchool = () => {
         return <div>School not found.</div>;
     }
 
-    if (isLoading) {
-        return <div><Loader /></div>;
+    const handleDelete = async (_id) => {
+        try {
+            await axios
+                .delete(`${server}/shop/delete-seller/${id}`, { withCredentials: true })
+            toast.success("School deleted successfully");
+            // Perform any additional actions after successful deletion
+            // Close the window tab
+            window.close();
+        } catch (error) {
+            console.error("Error deleting School:", error);
+            toast.error("Failed to delete School");
+        }
     }
+    // cancel function handled by cancel btn on dialog box
+    const handleCancel = () => {
+        // Cancel button clicked, close the dialog
+        setShowDialog(false);
+    };
+    // confirm handle delete
+    const confirmDelete = () => {
+        setShowDialog(true);
+    };
+    const handleConfirmation = () => {
+        handleDelete(shop._id);
+        setShowDialog(false);
+    };
+
 
     return (
         <div>
@@ -119,6 +145,35 @@ const ViewSchool = () => {
                         </dd>
                     </div>
                 </dl>
+                <div className="flex justify-end">
+                    <button
+                        className="w-80 h-12 rounded-full bg-red-500 hover:bg-red-700 text-white"
+                        onClick={confirmDelete}
+                    >
+                        Delete School
+                    </button>
+                    {showDialog && (
+                        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
+                            <div className="bg-white p-4 rounded shadow">
+                                <p>Are you sure you want to delete the user?  {shop.name}</p>
+                                <div className="mt-4 flex justify-end">
+                                    <button
+                                        className="mr-2 px-4 py-2 bg-red-500 hover:bg-red-700 text-white rounded"
+                                        onClick={handleConfirmation}
+                                    >
+                                        Yes
+                                    </button>
+                                    <button
+                                        className="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 rounded"
+                                        onClick={handleCancel}
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
 

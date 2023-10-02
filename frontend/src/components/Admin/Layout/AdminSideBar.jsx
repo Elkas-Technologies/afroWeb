@@ -29,7 +29,7 @@ const AdminSideBar = ({ active }) => {
       </div>
 
       <div className="w-full flex items-center p-4">
-        <Link to="/admin-orders" className="w-full flex items-center">
+        <Link to="/admin-applications" className="w-full flex items-center">
           {/* <FiShoppingBag
             size={30}
             color={`${active === 2 ? "crimson" : "#555"}`}
@@ -74,7 +74,7 @@ const AdminSideBar = ({ active }) => {
       </div>
 
       <div className="w-full flex items-center p-4">
-        <Link to="/admin-products" className="w-full flex items-center">
+        <Link to="/admin-programs" className="w-full flex items-center">
           {/* <BsHandbag
             size={30}
             color={`${active === 5 ? "crimson" : "#555"}`}

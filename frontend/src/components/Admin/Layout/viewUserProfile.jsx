@@ -5,32 +5,22 @@ import { server } from "../../../server";
 import { backend_url } from "../../../server";
 import axios from 'axios';
 import Loader from '../../Layout/Loader';
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
 
 const ViewUser = () => {
     const { id } = useParams();
     const location = useLocation();
     const [user, setUser] = useState(null);
+    const { users } = useSelector((state) => state.user);
     const [isLoading, setIsLoading] = useState(true);
+    const [showDialog, setShowDialog] = useState(false);
 
-    // useEffect(() => {
-    //     const fetchUser = async () => {
-    //         try {
-    //             const response = await axios.get(`${server}/user/user-info/${id}`);
-    //             const { data } = response;
-    //             setUser(data.user);
-    //             setIsLoading(false);
-    //         } catch (error) {
-    //             console.error("Error fetching user:", error);
-    //             setIsLoading(false);
-    //         }
-    //     };
 
-    //     fetchUser();
-    // }, [id]);
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await axios.get(`${server}/user/user-info/${id}`);
+                const response = await axios.get(`${server}/user/user-info/${id}`, { withCredentials: true });
                 const { data } = response;
                 console.log(data); // Log the response data to the console
                 setUser(data.user);
@@ -52,13 +42,50 @@ const ViewUser = () => {
         return <div>User not found.</div>;
     }
 
-    if (isLoading) {
-        return <div><Loader /></div>;
-    }
+    // handle delete function.
+    const handleDelete = async (_id) => {
+        try {
+            await axios.delete(`${server}/user/delete-user/${_id}`, { withCredentials: true });
+            toast.success("User deleted successfully");
+            // Perform any additional actions after successful deletion
+            // Close the window tab
+            window.close();
+        } catch (error) {
+            console.error("Error deleting user:", error);
+            toast.error("Failed to delete user");
+        }
+    };
+    // cancel function handled by cancel btn on dialog box
+    const handleCancel = () => {
+        // Cancel button clicked, close the dialog
+        setShowDialog(false);
+    };
 
-    if (!user) {
-        return <div>User not found.</div>;
-    }
+    // confirm handle delete
+    const confirmDelete = () => {
+        setShowDialog(true);
+    };
+    // handle delete confirmation
+    const handleConfirmation = () => {
+        handleDelete(user._id);
+        setShowDialog(false);
+    };
+    // 
+
+    // users &&
+    //     users.forEach((item) => {
+    //         user.push({
+    //             id: item._id,
+    //             name: item.name,
+    //             email: item.email,
+    //             role: item.role,
+    //             avatar: item.avatar,
+    //             phone: item.phone,
+    //             joinedAt: item.createdAt.slice(0, 10),
+    //         });
+    //     });
+
+
 
     return (
         <div>
@@ -195,6 +222,35 @@ const ViewUser = () => {
                         </dd>
                     </div>
                 </dl>
+                <div className="flex justify-end">
+                    <button
+                        className="w-80 h-12 rounded-full bg-red-500 hover:bg-red-700 text-white"
+                        onClick={confirmDelete}
+                    >
+                        Delete User
+                    </button>
+                    {showDialog && (
+                        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
+                            <div className="bg-white p-4 rounded shadow">
+                                <p>Are you sure you want to delete the user?  {user.name}</p>
+                                <div className="mt-4 flex justify-end">
+                                    <button
+                                        className="mr-2 px-4 py-2 bg-red-500 hover:bg-red-700 text-white rounded"
+                                        onClick={handleConfirmation}
+                                    >
+                                        Yes
+                                    </button>
+                                    <button
+                                        className="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 rounded"
+                                        onClick={handleCancel}
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
 
