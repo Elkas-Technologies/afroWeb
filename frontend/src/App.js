@@ -296,6 +296,14 @@ const App = () => {
           }
         />
          <Route
+          path="/admin-viewProgram/:id"
+          element={
+            <ProtectedAdminRoute>
+              <ViewUser />
+            </ProtectedAdminRoute>
+          }
+        />
+         <Route
           path="/admin-viewSchool/:id"
           element={
             <ProtectedAdminRoute>
@@ -304,7 +312,7 @@ const App = () => {
           }
         />
         <Route
-          path="/admin-orders"
+          path="/admin-applications"
           element={
             <ProtectedAdminRoute>
               <AdminDashboardOrders />
@@ -312,7 +320,7 @@ const App = () => {
           }
         />
          <Route
-          path="/admin-products"
+          path="/admin-programs"
           element={
             <ProtectedAdminRoute>
               <AdminDashboardProducts />
