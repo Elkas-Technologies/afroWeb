@@ -8,7 +8,7 @@ import { Button } from "@material-ui/core";
 import styles from "../../styles/styles";
 import { RxCross1 } from "react-icons/rx";
 import axios from "axios";
-import { server } from "../../server";
+import { server, backend_url } from "../../server";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
@@ -116,7 +116,7 @@ const AllUsers = () => {
                 <div className="flex items-center gap-x-4">
                   <img
                     className="h-12 w-12 flex-none rounded-full bg-gray-50"
-                    src={person.avatar}
+                    src={`${backend_url}${person?.avatar}`}
                     alt=""
                   />
                   <div>

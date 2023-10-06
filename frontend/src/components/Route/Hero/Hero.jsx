@@ -16,7 +16,7 @@ const Hero = () => {
     setActiveDivIndex(index);
   };
 
- const handleDivHover = (index, isHovered) => {
+  const handleDivHover = (index, isHovered) => {
     if (isHovered) {
       setHoveredDivIndex(index);
     } else {
@@ -30,7 +30,7 @@ const Hero = () => {
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
   };
- const divClasses = [
+  const divClasses = [
     `w-8 h-2 rounded-full mr-2 cursor-pointer ${activeDivIndex === 0 ? 'bg-red-500' : hoveredDivIndex === 0 ? 'bg-orange-800' : 'bg-white'}`,
     `w-8 h-2 rounded-full mr-2 cursor-pointer ${activeDivIndex === 1 ? 'bg-red-500' : hoveredDivIndex === 1 ? 'bg-orange-800' : 'bg-white'}`,
     `w-8 h-2 rounded-full mr-2 cursor-pointer ${activeDivIndex === 2 ? 'bg-red-500' : hoveredDivIndex === 2 ? 'bg-orange-800' : 'bg-white'}`,
@@ -42,8 +42,8 @@ const Hero = () => {
     backgroundRepeat: "no-repeat",
   };
 
-   
-    
+
+
   return (
     // <div
     //   className={`relative min-h-[70vh] 800px:min-h-[80vh] w-full bg-no-repeat ${styles.noramlFlex}`}
@@ -73,23 +73,23 @@ const Hero = () => {
     //     </Link>
     //   </div>
     // </div>
-        <div
+    <div
       className="h-screen w-full flex items-center justify-center relative "
       style={divStyle}
     >
-      
+
       <div
         className="mx-auto flex flex-col items-center justify-center  max-w-[75rem] w-full h-[600px]  py-2 px-4  mb-10 "
         style={divHome}
       >
         <center>
-        <h1 className="text-[64px] text-center mb-[3rem]">
+          <h1 className="text-[64px] text-center mb-[3rem]">
             <span className="text-white">Study In <br />{" "}</span>
-          
-          <span className="text-orange-700">CANADA</span>
 
-        </h1>
-         </center>
+            <span className="text-orange-700">CANADA</span>
+
+          </h1>
+        </center>
         {/* <p className="text-center font-light">
           {" "}
           Nous nous engageons à fournir une éducation technologique à la
@@ -103,34 +103,34 @@ const Hero = () => {
           >
             Apply Now
           </button> */}
-          <Link to="/products" className="inline-block">
-          <button className="bg-orange-700 rounded-xl px-7 py-3 text-white" type="submit">
-                Browse Courses
-          </button>
+          <Link to="/programs" className="inline-block">
+            <button className="bg-orange-700 rounded-xl px-7 py-3 text-white" type="submit">
+              Browse Courses
+            </button>
           </Link>
         </div>
       </div>
 
-{/* here its just a sample  */}
-<div className="absolute bottom-0 flex gap-3 mb-10">
- <div className="flex">
-        {divClasses.map((className, index) => (
-          <div
-            key={index}
-            className={className}
-            onClick={() => handleDivClick(index)}
-            onMouseEnter={() => handleDivHover(index, true)}
-            onMouseLeave={() => handleDivHover(index, false)}
-          ></div>
-        ))}
+      {/* here its just a sample  */}
+      <div className="absolute bottom-0 flex gap-3 mb-10">
+        <div className="flex">
+          {divClasses.map((className, index) => (
+            <div
+              key={index}
+              className={className}
+              onClick={() => handleDivClick(index)}
+              onMouseEnter={() => handleDivHover(index, true)}
+              onMouseLeave={() => handleDivHover(index, false)}
+            ></div>
+          ))}
+        </div>
       </div>
-      </div>
-      
-      
+
+
     </div>
-    
+
   );
- 
+
 };
 
 

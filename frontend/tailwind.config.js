@@ -15,7 +15,12 @@ module.exports = {
         "1300px": "1300px",
         "400px":"400px"
       },
+      gridTemplateRows: {
+          '[auto,auto,1fr]': 'auto auto 1fr',
+        },
     },
   },
-  plugins: [],
+  plugins: [
+     require('@tailwindcss/aspect-ratio')
+  ],
 };
