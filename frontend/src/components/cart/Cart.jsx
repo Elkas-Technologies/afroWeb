@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addTocart, removeFromCart } from "../../redux/actions/cart";
 import { toast } from "react-toastify";
 
+
 const Cart = ({ setOpenCart }) => {
   const { cart } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -32,11 +33,11 @@ const Cart = ({ setOpenCart }) => {
         {cart && cart.length === 0 ? (
           <div className="w-full h-screen flex items-center justify-center">
             <div className="flex w-full justify-end pt-5 pr-5 fixed top-3 right-3">
-               <RxCross1 
+              <RxCross1
                 size={25}
                 className="cursor-pointer"
                 onClick={() => setOpenCart(false)}
-                />
+              />
             </div>
             <h5>Cart Items is empty!</h5>
           </div>

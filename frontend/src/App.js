@@ -295,14 +295,8 @@ const App = () => {
             </ProtectedAdminRoute>
           }
         />
-         <Route
-          path="/admin-viewProgram/:id"
-          element={
-            <ProtectedAdminRoute>
-              <ViewUser />
-            </ProtectedAdminRoute>
-          }
-        />
+        
+        
          <Route
           path="/admin-viewSchool/:id"
           element={
