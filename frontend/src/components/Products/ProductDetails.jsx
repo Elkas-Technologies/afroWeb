@@ -18,8 +18,11 @@ import { addTocart } from "../../redux/actions/cart";
 import { toast } from "react-toastify";
 import Ratings from "./Ratings";
 import axios from "axios";
+import { BrowserRouter as Router, Route, Switch, useHistory } from "react-router-dom";
+import CheckoutPage from "../../pages/CheckoutPage";
 
-const ProductDetails = ({ data }) => {
+const ProductDetails = ({ data, history }) => {
+
   const { wishlist } = useSelector((state) => state.wishlist);
   const { cart } = useSelector((state) => state.cart);
   const { user, isAuthenticated } = useSelector((state) => state.user);
@@ -59,17 +62,23 @@ const ProductDetails = ({ data }) => {
   };
 
   const addToCartHandler = (id) => {
+
+
     const isItemExists = cart && cart.find((i) => i._id === id);
     if (isItemExists) {
-      toast.error("Item already in cart!");
+      toast.error("Application already Started!");
+      return null;
     } else {
       if (data.stock < 1) {
-        toast.error("Product stock limited!");
+        toast.error("Program stock limited!");
       } else {
         const cartData = { ...data, qty: count };
         dispatch(addTocart(cartData));
-        toast.success("Item added to cart successfully!");
+        toast.success("Application started successfully!");
+
+
       }
+
     }
   };
 
@@ -163,7 +172,7 @@ const ProductDetails = ({ data }) => {
                   </h4>
                 </div>
 
-                <div className="flex items-center mt-12 justify-between pr-3">
+                {/* <div className="flex items-center mt-12 justify-between pr-3">
                   <div>
                     <button
                       className="bg-gradient-to-r from-teal-400 to-teal-500 text-white font-bold rounded-l px-4 py-2 shadow-lg hover:opacity-75 transition duration-300 ease-in-out"
@@ -200,14 +209,21 @@ const ProductDetails = ({ data }) => {
                       />
                     )}
                   </div>
-                </div>
+                </div> */}
                 <div
-                  className={`${styles.button} !mt-6 !rounded !h-11 flex items-center`}
+
                   onClick={() => addToCartHandler(data._id)}
                 >
-                  <span className="text-white flex items-center">
-                    Add to cart <AiOutlineShoppingCart className="ml-1" />
-                  </span>
+                  <Link to="/checkout">
+                    <div
+                      className={`h-[45px] flex items-center justify-center w-[100%] bg-[#050505] rounded-[5px]`}
+                    >
+                      <h1 className="text-[#fff] text-[18px] font-[600]">
+                        Apply Now
+                      </h1>
+                    </div>
+                  </Link>
+
                 </div>
                 <div className="flex items-center pt-8">
                   <Link to={`/school/preview/${data?.shop._id}`}>
@@ -255,6 +271,7 @@ const ProductDetails = ({ data }) => {
     </div>
   );
 };
+
 
 const ProductDetailsInfo = ({
   data,
@@ -338,7 +355,7 @@ const ProductDetailsInfo = ({
 
           <div className="w-full flex justify-center">
             {data && data.reviews.length === 0 && (
-              <h5>No Reviews have for this product!</h5>
+              <h5>No Reviews have for this program!</h5>
             )}
           </div>
         </div>
@@ -373,7 +390,7 @@ const ProductDetailsInfo = ({
                 </span>
               </h5>
               <h5 className="font-[600] pt-3">
-                Total Products:{" "}
+                Total Programs:{" "}
                 <span className="font-[500]">
                   {products && products.length}
                 </span>
@@ -382,11 +399,11 @@ const ProductDetailsInfo = ({
                 Total Reviews:{" "}
                 <span className="font-[500]">{totalReviewsLength}</span>
               </h5>
-              <Link to="/">
+              <Link to={`/school/preview/${data.shop._id}`}>
                 <div
                   className={`${styles.button} !rounded-[4px] !h-[39.5px] mt-3`}
                 >
-                  <h4 className="text-white">Visit Shop</h4>
+                  <h4 className="text-white">Visit School</h4>
                 </div>
               </Link>
             </div>
