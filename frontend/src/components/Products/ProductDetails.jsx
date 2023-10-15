@@ -305,7 +305,7 @@ const ProductDetailsInfo = ({
             }
             onClick={() => setActive(2)}
           >
-            Program Reviews
+            Admission Requirements
           </h5>
           {active === 2 ? (
             <div className={`${styles.active_indicator}`} />
@@ -318,13 +318,41 @@ const ProductDetailsInfo = ({
             }
             onClick={() => setActive(3)}
           >
-            School Information
+            Courses
           </h5>
           {active === 3 ? (
             <div className={`${styles.active_indicator}`} />
           ) : null}
         </div>
+        <div className="relative">
+          <h5
+            className={
+              "text-[#000] text-[18px] px-1 leading-5 font-[600] cursor-pointer 800px:text-[20px]"
+            }
+            onClick={() => setActive(4)}
+          >
+            School Information
+          </h5>
+          {active === 4 ? (
+            <div className={`${styles.active_indicator}`} />
+          ) : null}
+        </div>
+        <div className="relative">
+          <h5
+            className={
+              "text-[#000] text-[18px] px-1 leading-5 font-[600] cursor-pointer 800px:text-[20px]"
+            }
+            onClick={() => setActive(5)}
+          >
+            School Review
+          </h5>
+          {active === 5 ? (
+            <div className={`${styles.active_indicator}`} />
+          ) : null}
+        </div>
       </div>
+
+
       {active === 1 ? (
         <>
           <p className="py-2 text-[18px] leading-8 pb-10 whitespace-pre-line">
@@ -333,36 +361,23 @@ const ProductDetailsInfo = ({
         </>
       ) : null}
 
-      {active === 2 ? (
-        <div className="w-full min-h-[40vh] flex flex-col items-center py-3 overflow-y-scroll">
-          {data &&
-            data.reviews.map((item, index) => (
-              <div className="w-full flex my-2">
-                <img
-                  src={`${backend_url}/${item.user?.avatar}`}
+      {active === 2 && (
+        <>
+        <p className="py-2 text-[18px] leading-8 pb-10 whitespace-pre-line">
+          {data.adescription}
+        </p>
+      </>
+      )}
 
-                  alt=""
-                  className="w-[50px] h-[50px] rounded-full"
-                />
-                <div className="pl-2 ">
-                  <div className="w-full flex items-center">
-                    <h1 className="font-[500] mr-3">{item.user.name}</h1>
-                    <Ratings rating={data?.ratings} />
-                  </div>
-                  <p>{item.comment}</p>
-                </div>
-              </div>
-            ))}
-
-          <div className="w-full flex justify-center">
-            {data && data.reviews.length === 0 && (
-              <h5>No Reviews have for this program!</h5>
-            )}
-          </div>
-        </div>
-      ) : null}
-
-      {active === 3 && (
+     {active === 3 && (
+        <>
+        <p className="py-2 text-[18px] leading-8 pb-10 whitespace-pre-line">
+          {data.course}
+        </p>
+      </>
+      )}
+      
+     {active === 4 && (
         <div className="w-full block 800px:flex p-5">
           <div className="w-full 800px:w-[50%]">
             <Link to={`/school/preview/${data.shop._id}`}>
@@ -411,6 +426,37 @@ const ProductDetailsInfo = ({
           </div>
         </div>
       )}
+
+      {active === 5 ? (
+        <div className="w-full min-h-[40vh] flex flex-col items-center py-3 overflow-y-scroll">
+          {data &&
+            data.reviews.map((item, index) => (
+              <div className="w-full flex my-2">
+                <img
+                  src={`${backend_url}/${item.user?.avatar}`}
+
+                  alt=""
+                  className="w-[50px] h-[50px] rounded-full"
+                />
+                <div className="pl-2 ">
+                  <div className="w-full flex items-center">
+                    <h1 className="font-[500] mr-3">{item.user.name}</h1>
+                    <Ratings rating={data?.ratings} />
+                  </div>
+                  <p>{item.comment}</p>
+                </div>
+              </div>
+            ))}
+
+          <div className="w-full flex justify-center">
+            {data && data.reviews.length === 0 && (
+              <h5>No Reviews have for this program!</h5>
+            )}
+          </div>
+        </div>
+      ) : null}
+
+  
     </div>
 
   );
