@@ -26,10 +26,10 @@ import { Country, State } from "country-state-city";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { getAllOrdersOfUser } from "../../redux/actions/order";
+import { getAllOrdersOfShop, getAllOrdersOfUser } from "../../redux/actions/order";
 
 const ProfileContent = ({ active }) => {
-  const { user, error, successMessage } = useSelector((state) => state.user);
+  const { user, error, successMessage } = useSelector((state) => state.user); 
   const [name, setName] = useState(user && user.name);
   const [email, setEmail] = useState(user && user.email);
   const [phoneNumber, setPhoneNumber] = useState(user && user.phoneNumber);
@@ -209,15 +209,16 @@ const ProfileContent = ({ active }) => {
 
 const AllOrders = () => {
   const { user } = useSelector((state) => state.user);
-  const { orders } = useSelector((state) => state.order);
+  const { orders } = useSelector((state) => state.order); 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllOrdersOfUser(user._id));
+     
   }, []);
 
   const columns = [
-    { field: "id", headerName: "Order ID", minWidth: 150, flex: 0.7 },
+
 
     {
       field: "status",
@@ -231,9 +232,9 @@ const AllOrders = () => {
       },
     },
     {
-      field: "itemsQty",
-      headerName: "Items Qty",
-      type: "number",
+      field: "date",
+      headerName: "Date Applied",
+      type: "date",
       minWidth: 130,
       flex: 0.7,
     },
@@ -256,7 +257,7 @@ const AllOrders = () => {
       renderCell: (params) => {
         return (
           <>
-            <Link to={`/user/order/${params.id}`}>
+            <Link to={`/user/application/${params.id}`}>
               <Button>
                 <AiOutlineArrowRight size={20} />
               </Button>
@@ -273,6 +274,7 @@ const AllOrders = () => {
     orders.forEach((item) => {
       row.push({
         id: item._id,
+        date: item.createdAt.substring(0, 10),
         itemsQty: item.cart.length,
         total: "US$ " + item.totalPrice,
         status: item.status,
@@ -343,7 +345,7 @@ const AllRefundOrders = () => {
       renderCell: (params) => {
         return (
           <>
-            <Link to={`/user/order/${params.id}`}>
+            <Link to={`/user/application/${params.id}`}>
               <Button>
                 <AiOutlineArrowRight size={20} />
               </Button>
@@ -389,7 +391,7 @@ const TrackOrder = () => {
   }, []);
 
   const columns = [
-    { field: "id", headerName: "Order ID", minWidth: 150, flex: 0.7 },
+     
 
     {
       field: "status",
@@ -403,8 +405,8 @@ const TrackOrder = () => {
       },
     },
     {
-      field: "itemsQty",
-      headerName: "Items Qty",
+      field: "date",
+      headerName: "Date Applied",
       type: "number",
       minWidth: 130,
       flex: 0.7,
@@ -412,7 +414,7 @@ const TrackOrder = () => {
 
     {
       field: "total",
-      headerName: "Total",
+      headerName: "Application Fee",
       type: "number",
       minWidth: 130,
       flex: 0.8,
@@ -428,7 +430,7 @@ const TrackOrder = () => {
       renderCell: (params) => {
         return (
           <>
-            <Link to={`/user/track/order/${params.id}`}>
+            <Link to={`/user/track/application/${params.id}`}>
               <Button>
                 <MdTrackChanges size={20} />
               </Button>
@@ -445,6 +447,7 @@ const TrackOrder = () => {
     orders.forEach((item) => {
       row.push({
         id: item._id,
+        date: item.createdAt.substring(0, 10),
         itemsQty: item.cart.length,
         total: "US$ " + item.totalPrice,
         status: item.status,
