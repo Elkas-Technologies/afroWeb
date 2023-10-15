@@ -18,7 +18,6 @@ const AllOrders = () => {
   }, [dispatch]);
 
   const columns = [
-    { field: "id", headerName: "application ID", minWidth: 150, flex: 0.7 },
 
     {
       field: "status",
@@ -26,14 +25,14 @@ const AllOrders = () => {
       minWidth: 130,
       flex: 0.7,
       cellClassName: (params) => {
-        return params.getValue(params.id, "status") === "Delivered"
+        return params.getValue(params.id, "status") === "Accepted"
           ? "greenColor"
           : "redColor";
       },
     },
     {
-      field: "course",
-      headerName: "Course Applied",
+      field: "date",
+      headerName: "Date Applied",
       type: "text",
       minWidth: 130,
       flex: 0.7,
@@ -64,7 +63,7 @@ const AllOrders = () => {
       renderCell: (params) => {
         return (
           <>
-            <Link to={`/order/${params.id}`}>
+            <Link to={`/application/${params.id}`}>
               <Button>
                 <AiOutlineArrowRight size={20} />
               </Button>
@@ -81,10 +80,10 @@ const AllOrders = () => {
     orders.forEach((item) => {
       row.push({
         id: item._id,
-        corse: item.corse,
-        userApplied: item.name,
+        date: item.createdAt.substring(0, 10),
+        userApplied: item.user.name,
         status: item.status,
-        email: item.email,
+        email: item.user.email,
       });
     });
 

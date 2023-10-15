@@ -22,29 +22,19 @@ const TrackOrder = () => {
       <>
         {data && data?.status === "Processing" ? (
           <h1 className="text-[20px]">Your Application is processing by Admins.</h1>
-        ) : data?.status === "Transferred to delivery partner" ? (
+        ) : data?.status === "Document Reviewing" ? (
           <h1 className="text-[20px]">
-            Your Application is on the way for School partner.
+            Your Application is on Document Reviewing.
           </h1>
-        ) : data?.status === "Shipping" ? (
+        ) : data?.status === "Accepted" ? (
           <h1 className="text-[20px]">
-            Your Application is on the way please wait...
+            Your Application is Accepted! Congratulations 😍
           </h1>
-        ) : data?.status === "Received" ? (
+        ) : data?.status === "Rejected" ? (
           <h1 className="text-[20px]">
-            Your Application is in School Admision principals.
+            Sorry Your Application is not accepted for this time!
           </h1>
-        ) : data?.status === "On the way" ? (
-          <h1 className="text-[20px]">
-            Our Delivery man is going to deliver your order.
-          </h1>
-        ) : data?.status === "Delivered" ? (
-          <h1 className="text-[20px]">Your Application is Accepted ! Congratulations </h1>
-        ) : data?.status === "Processing refund" ? (
-          <h1 className="text-[20px]">Your refund is processing!</h1>
-        ) : data?.status === "Refund Success" ? (
-          <h1 className="text-[20px]">Your Refund is success!</h1>
-        ) : null}
+        ): null}
       </>
     </div>
   );
