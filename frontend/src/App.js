@@ -120,7 +120,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="/order/success" element={<OrderSuccessPage />} />
+        <Route path="/application/success" element={<OrderSuccessPage />} />
         <Route
           path="/profile"
           element={
@@ -138,7 +138,7 @@ const App = () => {
           }
         />
         <Route
-          path="/user/order/:id"
+          path="/user/application/:id"
           element={
             <ProtectedRoute>
               <OrderDetailsPage />
@@ -146,7 +146,7 @@ const App = () => {
           }
         />
         <Route
-          path="/user/track/order/:id"
+          path="/user/track/application/:id"
           element={
             <ProtectedRoute>
               <TrackOrderPage />

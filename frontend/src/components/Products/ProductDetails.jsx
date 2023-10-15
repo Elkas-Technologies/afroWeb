@@ -14,7 +14,7 @@ import {
   addToWishlist,
   removeFromWishlist,
 } from "../../redux/actions/wishlist";
-import { addTocart } from "../../redux/actions/cart";
+import { addTocart, clearCart, removeFromCart } from "../../redux/actions/cart";
 import { toast } from "react-toastify";
 import Ratings from "./Ratings";
 import axios from "axios";
@@ -63,22 +63,23 @@ const ProductDetails = ({ data, history }) => {
 
   const addToCartHandler = (id) => {
 
-
+    dispatch(clearCart());
     const isItemExists = cart && cart.find((i) => i._id === id);
+    const cartData = { ...data, qty: count};
+    
     if (isItemExists) {
       toast.error("Application already Started!");
+      dispatch(addTocart(cartData));
+      console.log(cartData);
+    }
+    else if(data.stock < 1){
+      toast.error("Application Full now for this Entry");
       return null;
-    } else {
-      if (data.stock < 1) {
-        toast.error("Program stock limited!");
-      } else {
-        const cartData = { ...data, qty: count };
-        dispatch(addTocart(cartData));
-        toast.success("Application started successfully!");
-
-
-      }
-
+    }
+    else{
+      toast.success("Application Started");
+      dispatch(addTocart(cartData));
+      console.log(cartData);
     }
   };
 
