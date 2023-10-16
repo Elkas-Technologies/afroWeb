@@ -114,27 +114,98 @@ const OrderDetails = () => {
       </div>
       <br />
       <br />
-      <div className="w-full 800px:flex items-center">
-        <div className="w-full 800px:w-[60%]">
-          <h4 className="pt-3 text-[20px] font-[600]">Applicant Address:</h4>
-          <h4 className="pt-3 text-[20px]">
-            {data?.shippingAddress.address1 +
-              " " +
-              data?.shippingAddress.address2}
-          </h4>
-          <h4 className=" text-[20px]">{data?.shippingAddress.country}</h4>
-          <h4 className=" text-[20px]">{data?.shippingAddress.city}</h4>
-          <h4 className=" text-[20px]">{data?.user?.phoneNumber}</h4>
-          <h4 className=" text-[20px]">{data?.user?.email}</h4>
-        </div>
-
-        <div className="w-full 800px:w-[60%]">
-          <h4 className="pt-3 text-[20px] font-[600]">Uploaded Documents:</h4>
-          
-          {data?.user?.documents.map((document, index) => (
+      {/* user profile */}
+      <div className="px-4 sm:px-0 flex justify-center items-center">
+                <div className="text-center">
+                    <h3 className="text-2xl font-semibold leading-7 text-gray-900">
+                        Applicant Information
+                    </h3>
+                    <p className="mt-1 max-w-2xl text-lg leading-6 text-gray-500">
+                        Personal details.
+                    </p>
+                </div>
+            </div>
+      
+      <div className="mt-6 border-t border-gray-100">
+                <dl className="divide-y divide-gray-100">
+                    <div className="flex items-center">
+                        <div className="flex items-center ml-32">
+                            <div className="w-1/2 flex-shrink-20 -space-x-2 overflow-hidden ml-30">
+                                <img
+                                    className="inline-block w-48 rounded-full ring-2 ring-white ml-30"
+                                    src={`${backend_url}${data?.user?.avatar}`}
+                                    alt=""
+                                />
+                            </div>
+                            <div className="w-1/2 ml-40">
+                                <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                    <dt className="text-sm font-medium leading-6 text-gray-900 " style={{ width: '200%' }}>
+                                    Full name:
+                                    </dt>
+                                    <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0" style={{ width: '200%' }}>
+                                        <span className="inline-block max-w-full">{data?.user?.name ? data?.user?.name : "N/A"}
+                                        </span>
+                                    </dd>
+                                </div>
+                                <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                    <dt className="text-sm font-medium leading-6 text-gray-900">
+                                    Applicant Email:
+                                    </dt>
+                                    <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                                        {data?.user?.email ? data?.user?.email : "N/A"}
+                                    </dd>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0 ml-32">
+                        <dt className="text-sm font-medium leading-6 text-gray-900">
+                            Applicant Phone:
+                        </dt>
+                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                            {data?.user?.phoneNumber ? data?.user?.phoneNumber : "N/A"}
+                        </dd>
+                    </div>
+                   
+                   {/* user address in mapping */}
+                    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0 ml-32">
+                        <dt className="text-sm font-medium leading-6 text-gray-900">
+                        Applicant  Address:
+                        </dt>
+                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                            {/* {user.address} */}
+                            <ul>
+                                {data?.user?.addresses.map((address, index) => (
                                     <li key={index}>
-                                       <h4 className=" text-[20px]">{document.documentType }</h4> 
-                                       <svg
+                                        {address.addressType ? `${address.addressType}, ` : "N/A, "}
+                                        {address.address1 ? `${address.address1}, ` : "N/A, "}
+                                        {address.address2 ? `${address.address2}, ` : "N/A, "}
+                                        {address.city ? `${address.city}, ` : "N/A, "}
+                                        {address.country ? `${address.country}, ` : "N/A, "}
+                                    </li>
+                                ))}
+                            </ul>
+                        </dd>
+                    </div>
+                    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                        <dt className="text-sm font-medium leading-6 text-gray-900 ml-32">Uploaded Documents</dt>
+                        <dd className="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0 ml-30">
+                            <ul>
+                                {data?.user?.documents.map((document, index) => (
+                                    <li key={index}>
+
+                                    </li>
+                                ))}
+                            </ul>
+                            <ul role="list" className="divide-y divide-gray-100 rounded-md border border-gray-200 mr-30">
+                                {data?.user?.documents.map((document, index) => (
+                                    <li key={index} className="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-6">
+                                        <div className="flex w-0 flex-1 items-center">
+                                            <div className="ml-4 flex min-w-0 flex-1 gap-2">
+                                                <span className="truncate font-medium">
+                                                    {document.documentType ? document.documentType : "N/A"}</span>
+                                            </div>
+                                            <svg
                                                 className="h-5 w-5 flex-shrink-0 text-gray-400"
                                                 viewBox="0 0 20 20"
                                                 fill="currentColor"
@@ -151,16 +222,23 @@ const OrderDetails = () => {
                                                 <span className="truncate font-medium">
                                                     {document.pdfFile ? document.pdfFile : "N/A"}</span>
                                             </div>
-                                            <div className="ml-4 flex-shrink-0">
+                                        </div>
+                                        <div className="ml-4 flex-shrink-0">
                                             <a href={`${backend_url}${document.pdfFile}`} target="_blank" rel="noopener noreferrer" className="font-medium text-indigo-600 hover:text-indigo-500">
                                                 View
                                             </a>
                                         </div>
                                     </li>
                                 ))}
-        </div>
-
-
+                            </ul>
+                        </dd>
+                    </div>
+                </dl>
+                 
+            </div>
+       
+      {/* Payment */}
+      <div className="w-full 800px:flex items-center">
         <div className="w-full 800px:w-[40%]">
           <h4 className="pt-3 text-[20px]">Payment Info:</h4>
           <h4>

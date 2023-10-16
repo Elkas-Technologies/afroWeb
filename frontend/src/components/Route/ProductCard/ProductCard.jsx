@@ -36,30 +36,44 @@ const ProductCard = ({ data, isEvent }) => {
     }
   }, [wishlist]);
 
-  const removeFromWishlistHandler = (data) => {
-    setClick(!click);
-    dispatch(removeFromWishlist(data));
-  };
+  
 
-  const addToWishlistHandler = (data) => {
-    setClick(!click);
-    dispatch(addToWishlist(data));
-  };
+   
 
-  const addToCartHandler = (id) => {
-    const isItemExists = cart && cart.find((i) => i._id === id);
-    if (isItemExists) {
-      toast.error("Program already in cart!");
-    } else {
-      if (data.stock < 1) {
-        toast.error("Program stock limited!");
-      } else {
-        const cartData = { ...data, qty: 1 };
-        dispatch(addTocart(cartData));
-        toast.success("Program added to cart successfully!");
+  const settings = {
+    dots: false,
+    infinite: true,
+    slidesToShow: 3,
+    // centerMode: true,
+    slidesToScroll: 2,
+    arrows: false,
+    autoplay: false,
+    speed: 500,
+    cssEase: "linear",
+    responsive: [
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: false
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: false
+        }
       }
-    }
+    ]
   };
+
+
+
 
   return (
     <>
@@ -72,10 +86,7 @@ const ProductCard = ({ data, isEvent }) => {
             className="w-full h-[170px] object-contain"
           />
         </Link>
-        <Link to={`/school/preview/${data?.shop._id}`}>
-          <h5 className={`${styles.shop_name}`}>{data.shop.name}</h5>
-        </Link>
-        <Link to={`${isEvent === true ? `/program/${data._id}?isEvent=true` : `/program/${data._id}`}`}>
+         <Link to={`${isEvent === true ? `/program/${data._id}?isEvent=true` : `/program/${data._id}`}`}>
           <h4 className="pb-3 font-[500]">
             {data.name.length > 40 ? data.name.slice(0, 40) + "..." : data.name}
           </h4>
@@ -86,25 +97,26 @@ const ProductCard = ({ data, isEvent }) => {
 
           <div className="py-2 flex items-center justify-between">
             <div className="flex">
-              <h5 className={`${styles.productDiscountPrice}`}>
+             
                 {data.category
 
                 }
-
-              </h5>
-              <h4 className={`${styles.price}`}>
-                {data.tags}
-              </h4>
+              
             </div>
 
           </div>
         </Link>
+        <Link to={`/school/preview/${data?.shop._id}`}>
+          <h5 className={`${styles.shop_name}`}>{data.shop.name}</h5>
+        </Link>
+       
 
 
       </div>
+      
+  
+
     </>
-
-
 
   );
 };
