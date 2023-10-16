@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { BsFillBagFill } from "react-icons/bs";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/styles";
 import { getAllOrdersOfUser } from "../redux/actions/order";
 import { backend_url, server } from "../server";
 import { RxCross1 } from "react-icons/rx";
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { AiFillStar, AiOutlineMessage, AiOutlineStar } from "react-icons/ai";
 import axios from "axios";
 import { toast } from "react-toastify";
 
 const UserOrderDetails = () => {
   const { orders } = useSelector((state) => state.order);
-  const { user } = useSelector((state) => state.user);
+  const { user, isAuthenticated} = useSelector((state) => state.user); 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [comment, setComment] = useState("");
   const [selectedItem, setSelectedItem] = useState(null);
@@ -63,6 +64,8 @@ const UserOrderDetails = () => {
     })
   };
 
+  
+
   return (
     <div className={`py-4 min-h-screen ${styles.section}`}>
       <div className="w-full flex items-center justify-between">
@@ -95,6 +98,7 @@ const UserOrderDetails = () => {
             />
             <div className="w-full">
               <h5 className="pl-3 text-[20px]">{item.name}</h5>
+              <h5 className="pl-3 text-[20px]">{item.shop.name}</h5>
               <h5 className="pl-3 text-[20px] text-[#00000091]">
                 US${item.discountPrice} / Year
               </h5>
@@ -268,11 +272,7 @@ const UserOrderDetails = () => {
         </div>
       </div>
       <br />
-      <Link to="/">
-        <div className={`${styles.button} text-white`}>Send Message</div>
-      </Link>
-      <br />
-      <br />
+       
     </div>
   );
 };
