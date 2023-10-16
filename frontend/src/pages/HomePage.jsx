@@ -14,8 +14,8 @@ const HomePage = () => {
         <Header activeHeading={1} />
         <Hero />
         <BestDeals />
-        {/* <Events /> 
-        <Sponsored /> */}
+        <Events /> 
+        {/* <Sponsored /> */}
         <Footer />
     </div>
   )

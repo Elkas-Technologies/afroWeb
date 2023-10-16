@@ -5,10 +5,6 @@ export const navItems = [
       url: "/",
     },
     {
-      title: "Best College & Programs",
-      url: "/best-college-programs",
-    },
-    {
       title: "Programs",
       url: "/programs",
     },
